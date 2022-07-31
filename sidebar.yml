@@ -6,4 +6,5 @@ website:
       - 01_ML.ipynb
       - 02_deep_learning.ipynb
       - 03_engineering.ipynb
+      - 04_exploratory.ipynb
       - README.md

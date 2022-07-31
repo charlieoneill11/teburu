@@ -41,4 +41,6 @@ d = { 'settings': { 'audience': 'Developers',
                              'teburu.core.Regressor.predict': 'https://charlieoneill11.github.io/teburu/core.html#regressor.predict',
                              'teburu.core.Regressor.rmse': 'https://charlieoneill11.github.io/teburu/core.html#regressor.rmse',
                              'teburu.core.Regressor.score': 'https://charlieoneill11.github.io/teburu/core.html#regressor.score',
-                             'teburu.core.Regressor.train': 'https://charlieoneill11.github.io/teburu/core.html#regressor.train'}}}
+                             'teburu.core.Regressor.train': 'https://charlieoneill11.github.io/teburu/core.html#regressor.train'},
+            'teburu.deep_learning': { 'teburu.deep_learning.create_learner': 'https://charlieoneill11.github.io/teburu/deep_learning.html#create_learner',
+                                      'teburu.deep_learning.validate': 'https://charlieoneill11.github.io/teburu/deep_learning.html#validate'}}}

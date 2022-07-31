@@ -15,12 +15,12 @@ import numpy as np
 import pandas as pd
 # classification models
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, VotingClassifier
 # regression models
 import xgboost as xgb
 from sklearn import linear_model
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestRegressor, VotingRegressor
 
 # %% ../01_ML.ipynb 5
 class RegressionResults:
@@ -34,7 +34,9 @@ class RegressionResults:
         self.dt = DecisionTreeRegressor()
         self.rf = RandomForestRegressor()
         self.xgboost = xgb.XGBRegressor()
-        self.models_list = [self.lr, self.dt, self.rf, self.xgboost]
+        self.ensemble = VotingRegressor(estimators=[('lr', self.lr), ('dt', self.dt), 
+                                                    ('rf', self.rf), ('xgboost', self.xgboost)])
+        self.models_list = [self.lr, self.dt, self.rf, self.xgboost, self.ensemble]
         
     def report(self):
         "Generate RMSEs for each model"
@@ -47,7 +49,7 @@ class RegressionResults:
     def df_report(self):
         "Print out a dataframe of results"
         rmses = self.report()
-        models = ["linear_regression", "decision_tree", "random_forest", "xgboost"]
+        models = ["linear_regression", "decision_tree", "random_forest", "xgboost", "ensemble"]
         df_dict = {'models': models, 'RMSE': rmses}
         return pd.DataFrame(df_dict)
 
@@ -61,7 +63,9 @@ class ClassificationResults:
         self.dt = DecisionTreeClassifier()
         self.rf = RandomForestClassifier()
         self.xgboost = xgb.XGBClassifier()
-        self.models_list = [self.lr, self.dt, self.rf, self.xgboost]
+        self.ensemble = VotingClassifier(estimators=[('lr', self.lr), ('dt', self.dt), 
+                                             ('rf', self.rf), ('xgboost', self.xgboost)], voting='hard')
+        self.models_list = [self.lr, self.dt, self.rf, self.xgboost, self.ensemble]
         
     def report(self):
         "Generate performance metric for each model"
@@ -76,6 +80,6 @@ class ClassificationResults:
     def df_report(self):
         "Print out a dataframe of results"
         accuracies, aucs = self.report()
-        models = ["linear_regression", "decision_tree", "random_forest", "xgboost"]
-        df_dict = {'models': models, 'Accuracy': accuracies, 'AUC': aucs}
+        models = ["linear_regression", "decision_tree", "random_forest", "xgboost", "ensemble"]
+        df_dict = {'models': models, 'accuracy': accuracies, 'auc': aucs}
         return pd.DataFrame(df_dict)
